@@ -1,0 +1,53 @@
+group_id: G233
+problem_id: MP001
+data_issues:
+  leaking_column:
+    present: false
+    column: null
+  unit_mixup:
+    present: true
+    column: driver_exp_yr
+    group_value: East
+    factor: 12
+  sentinel_value:
+    present: false
+    column: null
+    value: null
+    count: null
+  duplicate_rows:
+    present: false
+    count: null
+  stuck_sensor:
+    present: true
+    column: passengers
+    start_date: '2026-02-23'
+    end_date: '2026-03-16'
+  target_typos:
+    present: false
+    count: null
+  spelling_variants:
+    present: true
+    column: weather
+    true_levels: 3
+tracking:
+  experiment_name: G233 MP001 v1
+  best_run_id: 9a9ceaa257f940fab292affdcf68386e
+  registered_model_name: G233-MP001-bus-delay
+  champion_version: 1
+monitoring:
+  psi:
+    route_km: null
+    stops: null
+    passengers: null
+    hour: null
+    temp_c: null
+    driver_exp_yr: null
+  most_drifted_feature: null
+  mae_by_group:
+    North: null
+    South: null
+    East: null
+  worst_served_group: null
+  mae_v1_on_check: null
+  mae_v2_on_check: null
+  decision: null
