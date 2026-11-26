@@ -1,0 +1,34 @@
+artifact_path: /workspace/scratch/29fa78f097a9/G233_MP001/models/mlflow/models/m-44e131696a4d46e4b0a7a03f7e0ad522/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.14
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+    skops_trusted_types: null
+is_signature_from_type_hint: false
+mlflow_version: 3.15.0
+model_id: m-44e131696a4d46e4b0a7a03f7e0ad522
+model_size_bytes: 2835
+model_uuid: m-44e131696a4d46e4b0a7a03f7e0ad522
+prompts: null
+run_id: 9a9ceaa257f940fab292affdcf68386e
+signature:
+  inputs: '[{"type": "double", "name": "route_km", "required": true}, {"type": "long",
+    "name": "stops", "required": true}, {"type": "double", "name": "passengers", "required":
+    true}, {"type": "long", "name": "hour", "required": true}, {"type": "double",
+    "name": "temp_c", "required": true}, {"type": "double", "name": "driver_exp_yr",
+    "required": true}, {"type": "string", "name": "weather", "required": true}, {"type":
+    "string", "name": "depot_zone", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2026-11-26 16:58:34.436138'
