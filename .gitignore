@@ -1,0 +1,9 @@
+__pycache__/
+.pytest_cache/
+.venv/
+/*.zip
+/mlruns/
+/mlartifacts/
+/mlflow.db-journal
+/mlflow.db-shm
+/mlflow.db-wal

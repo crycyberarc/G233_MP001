@@ -1,0 +1,26 @@
+on:
+  push:
+  pull_request:
+
+name: Tests
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - run: python -m pytest -q
+      - run: docker build -t mp001-api:1.0 .
+      - name: Smoke-test container endpoints
+        run: |
+          docker run -d --name mp001-api-test -p 8000:8000 mp001-api:1.0
+          trap 'docker logs mp001-api-test; docker rm -f mp001-api-test' EXIT
+          curl -fsS --max-time 2 --retry 20 --retry-all-errors --retry-delay 1 http://127.0.0.1:8000/health
+          curl -fsS -H 'Content-Type: application/json' \
+            --data '{"route_km":12.0,"stops":20,"passengers":40,"hour":8,"temp_c":28.0,"driver_exp_yr":6.0,"weather":"clear","depot_zone":"North"}' \
+            http://127.0.0.1:8000/predict | python -c 'import json, math, sys; assert math.isfinite(json.load(sys.stdin)["prediction"])'

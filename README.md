@@ -2,10 +2,22 @@
 
 SCSE3040 MLOps mini project · Group **G233** · Problem **MP001**
 
-The project predicts how many minutes late a bus will reach its final stop, using information available when the trip starts. Model error is measured with mean absolute error (MAE), in minutes.
+Enrolment numbers: S24CSEU1517, S24CSEU1523, S24CSEU1527, S24CSEU1516.
 
-## Working in this repository
+The model estimates how many minutes late a bus will reach its final stop, using information available when the trip starts. Validation uses mean absolute error in minutes.
 
-- Clone this repository after accepting the GitHub collaborator invitation. Commit work from your own account and open a pull request into `main`.
-- Extract the assigned CSVs locally. Keep the original ZIP and raw `train.csv` and `later.csv` out of Git. Their DVC pointers belong in `data/raw/`.
-- Keep the original CSV bytes intact. Apply any data repairs in the cleaning code.
+## Local setup
+
+Use Python 3.12 and install the pinned dependencies with `python -m pip install -r requirements.txt`. Run `python -m pytest -q` from the repository root. Tests use synthetic inputs.
+
+Extract `train.csv` and `later.csv` from the original ZIP into `data/raw/`. Keep the original CSV bytes intact. DVC tracks the original train and later files through their committed pointers. The holdout features are at `data/raw/holdout_features.csv`.
+
+Run `python -m src.bus_delay.data` to audit the raw data. Run `python -m src.bus_delay.train` with a fresh local tracking database to reproduce v1 from the original train data. The tracked `mlflow.db` records the successful v1 runs.
+
+## Serve predictions
+
+The service loads the v1 champion from `models/model.joblib`. Start the API with `python -m uvicorn app.main:app --port 8000`. The interactive API is at `/docs`, the status endpoint is `GET /health`, and the prediction endpoint is `POST /predict`.
+
+Build and run the deployment image with `docker build -t mp001-api:1.0 .` and `docker run --rm -p 8000:8000 mp001-api:1.0`. Kubernetes manifests are in `k8s/`.
+
+Each teammate uses their own GitHub account for commits and pull requests.
